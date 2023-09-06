@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css" />
+    <title>Artist DB App</title>
+</head>
+
+<body>
+    <header>
+        <h1>ARTIST DB</h1>
+        <section id="search-grid">
+            <input type="search" id="input-search" placeholder="Search artist by name">
+                <select name="sortby" id="sortby">
+                    <option value="default">Sort by</option>
+                    <option value="name">Name</option>
+                    <option value="genre">Genre</option>
+                    <option value="favorite">Favorite</option>
+                    <option value="activeSinceOld">Oldest artists</option>
+                    <option value="activeSinceNew">Newest artists</option>
+                </select>
+                <select name="favorites" id="favorites">
+                    <option value="all">Show all</option>
+                    <option value="favorites">Show favorites only</option>
+                </select>
+                <select id="filterby">
+                    <option value="filterall">Show All Genres</option>
+                    <option value="pop">Pop</option>
+                    <option value="rock">Rock</option>
+                    <option value="rap">Rap</option>
+                    <option value="hip-hop">Hip-Hop</option>
+                    <option value="r&b">R&B</option>
+                    <option value="edm">EDM</option>
+                </select>
+        </section>
+    </header>
+    <main>
+        <section id="artist-grid" class="grid-container"></section>
+        
+        <section class="forms-grid">
+            <form id="create-artist-form">
+                <h2>Create a new Artist
+                </h2>
+                <input type="text" name="name" placeholder="Artist name" required>
+                <input type="text" name="birthdate" placeholder="Artist birthdate" required>
+                <input type="text" name="activeSince" placeholder="Active since" required>
+                <input type="text" name="genres" placeholder="Artist genres (seperated by space please)" required>
+                <input type="text" name="labels" placeholder="Artist labels (seperated by space please)" required>
+                <input type="url" name="website" placeholder="Artist website" required>
+                <input type="url" name="image" placeholder="Artist image URL" required>
+                <input type="text" name="description" placeholder="Short desciption" required>
+                <button>Create Artist</button>
+            </form>
+
+            <form id="update-artist-form">
+                <h2>Update Artist</h2>
+                <input type="text" name="name" placeholder="Artist name" required>
+                <input type="text" name="birthdate" placeholder="Artist birthdate" required>
+                <input type="text" name="activeSince" placeholder="Active since" required>
+                <input type="text" name="genres" placeholder="Artist genres (seperated by space please)" required>
+                <input type="text" name="labels" placeholder="Artist labels (seperated by space please)" required>
+                <input type="url" name="website" placeholder="Artist website" required>
+                <input type="url" name="image" placeholder="Artist image URL" required>
+                <input type="text" name="description" placeholder="Short desciption" required>
+                <button>Update Artist</button>
+            </form>
+         </section>
+
+         <dialog id="artist-modal">
+            <img id="artist-image" src="">
+            <h3 id="artist-name"></h3>
+            <p id="artist-description"></p>
+            <p>Genres: <span id="artist-genres"></span></p>
+            <p>Birth: <span id="artist-birthdate"></span></p>
+            <p>Active Since: <span id="artist-activeSince"></span></p>
+            <p>Labels: <span id="artist-labels"></span></p>
+            <p>Website: <span id="artist-website"></span></p>
+            <form method="dialog">
+              <button>Close</button>
+            </form>
+          </dialog>
+          <dialog id="dialog-delete-artist">
+            <h2>Do you want to delete <strong id="delete-name" bold></strong> from the database?</h2>
+            <button id="delete-cancel">No</button>
+            <button id="delete-confirm">Yes</button>
+        </dialog>
+    </main>
+    <script type="module" src="script.js"></script>
+</body>
+
+</html>
