@@ -18,7 +18,6 @@
                     <option value="default">Sort by</option>
                     <option value="name">Name</option>
                     <option value="genre">Genre</option>
-                    <option value="favorite">Favorite</option>
                     <option value="activeSinceOld">Oldest artists</option>
                     <option value="activeSinceNew">Newest artists</option>
                 </select>
@@ -47,8 +46,8 @@
                 <input type="text" name="name" placeholder="Artist name" required>
                 <input type="text" name="birthdate" placeholder="Artist birthdate" required>
                 <input type="text" name="activeSince" placeholder="Active since" required>
-                <input type="text" name="genres" placeholder="Artist genres (seperated by space please)" required>
-                <input type="text" name="labels" placeholder="Artist labels (seperated by space please)" required>
+                <input type="text" name="genres" placeholder="Artist genres (seperated by comma please)" required>
+                <input type="text" name="labels" placeholder="Artist labels (seperated by comma please)" required>
                 <input type="url" name="website" placeholder="Artist website" required>
                 <input type="url" name="image" placeholder="Artist image URL" required>
                 <input type="text" name="description" placeholder="Short desciption" required>
@@ -60,8 +59,8 @@
                 <input type="text" name="name" placeholder="Artist name" required>
                 <input type="text" name="birthdate" placeholder="Artist birthdate" required>
                 <input type="text" name="activeSince" placeholder="Active since" required>
-                <input type="text" name="genres" placeholder="Artist genres (seperated by space please)" required>
-                <input type="text" name="labels" placeholder="Artist labels (seperated by space please)" required>
+                <input type="text" name="genres" placeholder="Artist genres (seperated by comma please)" required>
+                <input type="text" name="labels" placeholder="Artist labels (seperated by comma please)" required>
                 <input type="url" name="website" placeholder="Artist website" required>
                 <input type="url" name="image" placeholder="Artist image URL" required>
                 <input type="text" name="description" placeholder="Short desciption" required>
@@ -77,7 +76,7 @@
             <p>Birth: <span id="artist-birthdate"></span></p>
             <p>Active Since: <span id="artist-activeSince"></span></p>
             <p>Labels: <span id="artist-labels"></span></p>
-            <p>Website: <span id="artist-website"></span></p>
+            <p>Website: <a href="" id="artist-website"></span></p>
             <form method="dialog">
               <button>Close</button>
             </form>

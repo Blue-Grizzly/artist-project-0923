@@ -3,7 +3,7 @@
 # Install and launch app
  Navigate to the backend folder in your terminal:
 
-  ../artist-project/backend
+    ~ /artist-project/backend
 
  install dependencies with:
 
@@ -14,4 +14,4 @@ launch backend with:
 
     ~ npm start
 
-access frontend through liveserver.
+open index.html with liveserver to access the application. 

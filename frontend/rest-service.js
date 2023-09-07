@@ -85,11 +85,11 @@ async function deleteArtist(artistObject) {
     return response;
 }
 
-async function favoriteArtist(id){
-  const response = await fetch(`${endpoint}/artists/${id}`, {
-    method: "PATCH"
-  });
-  return response;
-}
+// async function favoriteArtist(id){
+//   const response = await fetch(`${endpoint}/artists/${id}`, {
+//     method: "PATCH"
+//   });
+//   return response;
+// }
 
-export { getArtists, createArtist, updateArtist, deleteArtist, favoriteArtist};
+export { getArtists, createArtist, updateArtist, deleteArtist};

@@ -23,7 +23,7 @@ app.put("/artists/:artistid", updateArtist);
 
 app.delete("/artists/:artistid", deleteArtist);
 
-app.patch("/artists/:artistid", favoriteArtist);
+// app.patch("/artists/:artistid", favoriteArtist); replaced by localstorage solution
 
 async function getAllArtists(request, response) {
     const artists = await readArtistDB();
@@ -67,7 +67,6 @@ async function postArtist(request, response) {
 
 function pushNewArtist(request, artists) {
     request.body.id = getNewId(artists);
-    request.body.favorite = false;
     artists.push(request.body);
     writeArtistDB(artists);
 }
@@ -80,13 +79,13 @@ async function updateArtist(request, response) {
     if (newList == artists) {
         response.status(404).json({ error: `No artist found with id: ${param}!` });
 
-    } else if (Object.keys(request.body).length != 10) {
+    } else if (Object.keys(request.body).length != 9) {
         response.status(400).json({ error: "Incorrect number of artist attributes!" });
 
     } else {
-        newArtist.push(request.body);
-        writeArtistDB(artists);
-        response.json(newArtist);
+        newList.push(request.body);
+        writeArtistDB(newList);
+        response.json(newList);
     }
 }
 
@@ -102,21 +101,21 @@ async function deleteArtist(request, response) {
     }
 }
 
-async function favoriteArtist(request, response) {
-    const artists = await readArtistDB();
-    const param = request.params.artistid;
-    const result = findArtist(artists, param);
+// async function favoriteArtist(request, response) {
+//     const artists = await readArtistDB();
+//     const param = request.params.artistid;
+//     const result = findArtist(artists, param);
 
-    if (!result) {
-        response.status(404).json({ error: `No artist found with id: ${param}!` });
-    } else {
+//     if (!result) {
+//         response.status(404).json({ error: `No artist found with id: ${param}!` });
+//     } else {
        
-        result.favorite = !result.favorite;
+//         result.favorite = !result.favorite;
 
-        writeArtistDB(artists);
-        response.json(result.favorite);
-    }
-}
+//         writeArtistDB(artists);
+//         response.json(result.favorite);
+//     }
+// } not applicable for a multiuser app
 
 async function readArtistDB() {
     return JSON.parse(await fs.readFile("data.json"));

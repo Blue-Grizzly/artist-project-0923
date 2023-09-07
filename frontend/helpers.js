@@ -20,8 +20,6 @@ function sortByOption(list) {
         return list.sort((a, b) => a.activeSince - b.activeSince);
       } else if (sortValue === "activeSinceNew") {
           return list.sort((a, b) => b.activeSince - a.activeSince);
-      } else if (sortValue === "favorite") {
-          return list.sort((a, b) => b.favorite - a.favorite);
       } else{
         return list;
       }
@@ -48,7 +46,7 @@ function filterByGenre(list) {
 
 function filterFavorites(list){
   const filterValue = document.querySelector("#favorites").dataset.filterValue;
-    let filteredList = list.filter((artist)=> artist.favorite == true);
+    let filteredList = list.filter((artist)=> artist.id in localStorage); //checks if artist id exists as a key in localstorage
     if (filterValue == "all" || !filterValue){
         return list;
     } else if(filteredList.length == 0){

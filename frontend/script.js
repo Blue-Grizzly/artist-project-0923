@@ -4,7 +4,6 @@ import {
   createArtist,
   updateArtist,
   deleteArtist,
-  favoriteArtist
 } from "./rest-service.js";
 
 export let artistList = [];
@@ -67,15 +66,15 @@ function updateClicked(artistObject) {
   updateForm.name.value = artistObject.name;
   updateForm.birthdate.value = artistObject.birthdate; //sets value of the form title to that of the object.
   updateForm.activeSince.value = artistObject.activeSince;
-  updateForm.genres.value = artistObject.genres;
-  updateForm.labels.value = artistObject.labels;
+  updateForm.genres.value = artistObject.genres.join(", ");
+  updateForm.labels.value = artistObject.labels.join(", ");
   updateForm.website.value = artistObject.website;
   updateForm.description.value = artistObject.description;
   updateForm.image.value = artistObject.image;
 
   //sets the id of the form to the id for the specific object
   updateForm.dataset.artistId = artistObject.id;
-  updateForm.dataset.artistFavorite = artistObject.favorite;
+  // updateForm.dataset.artistFavorite = artistObject.favorite;
 
   //shows the update form
   window.scrollTo({ top: 1000000, behavior: "smooth" }); //scroll to bottom
@@ -90,8 +89,8 @@ async function createArtistClicked(event) {
   const name = form.name.value;
   const birthdate = form.birthdate.value;
   const activeSince = form.activeSince.value;
-  const genres = form.genres.value.split(" ");
-  const labels = form.labels.value.split(" ");
+  const genres = form.genres.value.split(", ");
+  const labels = form.labels.value.split(", ");
   const website = form.website.value;
   const description = form.description.value;
   const image = form.image.value;
@@ -120,12 +119,12 @@ async function updateArtistClicked(event) {
   const name = form.name.value;
   const birthdate = form.birthdate.value;
   const activeSince = form.activeSince.value;
-  const genres = form.genres.value.split(" ");
-  const labels = form.labels.value.split(" ");
+  const genres = form.genres.value.split(", ");
+  const labels = form.labels.value.split(", ");
   const website = form.website.value;
   const description = form.description.value;
   const image = form.image.value;
-  const favorite = form.dataset.artistFavorite;
+  // const favorite = form.dataset.artistFavorite;
   //gets the id of the post
   const id = form.dataset.artistId;
 
@@ -140,8 +139,8 @@ async function updateArtistClicked(event) {
     labels,
     website,
     description,
-    image,
-    favorite
+    image
+    // favorite
   );
   if (response.ok) {
     refreshArtistGrid();
@@ -223,7 +222,7 @@ function showArtist(artistObject) {
             <h3><b>${artistObject.name}</b></h3>
             <p>${artistObject.description}</p>
             <p>Genres: ${artistObject.genres}</p>
-            <p>Website: ${artistObject.website}</p>
+            <p>Website: <a href="${artistObject.website}"> ${artistObject.website}</a></p>
         </div>
             <div class="btns">
                 <button class="btn-delete">Delete</button>
@@ -233,12 +232,12 @@ function showArtist(artistObject) {
         </article>
     `;
   document.querySelector("#artist-grid").insertAdjacentHTML("beforeend", html);
-  if (artistObject.favorite) {
+  if (getFavorite(artistObject.id)) {
     document.querySelector("#artist-grid article:last-child").classList.add("favorite");
   }
 
   document.querySelector("#artist-grid article:last-child .clickable").addEventListener("click", () => {
-    showCharacterModal(artistObject);
+    showArtistModal(artistObject);
   });
 
   document.querySelector("#artist-grid article:last-child .btn-delete")
@@ -251,27 +250,46 @@ function showArtist(artistObject) {
     addEventListener("click", () => artistFavoriteClick(artistObject));
 }
 
-function showCharacterModal(artistObject) {
+function getFavorite(id){
+  if(id in localStorage){ //checks if artist id exists as a key in localstorage which currently is only used for tracking favorites
+    // find better solution later!!
+    return true
+   } else {
+    return false;
+   }
+}
+
+
+
+function showArtistModal(artistObject) {
   document.querySelector("#artist-image").src = artistObject.image;
   document.querySelector("#artist-name").textContent = artistObject.name;
   document.querySelector("#artist-birthdate").textContent = artistObject.birthdate;
   document.querySelector("#artist-activeSince").textContent = artistObject.activeSince;
   document.querySelector("#artist-labels").textContent = artistObject.labels;
   document.querySelector("#artist-website").textContent = artistObject.website;
+  document.querySelector("#artist-website").href = artistObject.website;
   document.querySelector("#artist-genres").textContent = artistObject.genres;
   document.querySelector("#artist-description").textContent = artistObject.description;
   document.querySelector("#artist-modal").showModal();
 }
 
 async function artistFavoriteClick(artistObject) {
-  //can this be simplified with patch??
-  const response = await favoriteArtist(artistObject.id);
-  if (response.ok) {
-    refreshArtistGrid();
-    console.log("Artist added to favorites!");
-  } else {
-    console.log(response.status, response.statusText);
-  }
+  if(getFavorite(artistObject.id)){
+    localStorage.removeItem(artistObject.id);
+  }else{
+    localStorage.setItem(artistObject.id, true);
+}
+refreshArtistGrid();
+  
+  // replaced with localstorage solution for scalability
+  // const response = await favoriteArtist(artistObject.id);
+  // if (response.ok) {
+  //   refreshArtistGrid();
+  //   console.log("Artist added to favorites!");
+  // } else {
+  //   console.log(response.status, response.statusText);
+  // }
 }
 
 
