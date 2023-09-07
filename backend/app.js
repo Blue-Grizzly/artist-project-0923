@@ -135,7 +135,7 @@ function removeArtist(artists, param){ //filters the specific id out
 
 function getNewId(artists){ //generates a new id that is 1 above whatever the highest id in the data is
     artists.sort((a, b) => b.id - a.id)
-    return artists[0].id+1;
+    return Number(artists[0].id)+1;
 }
 
 app.listen( port, () =>{
