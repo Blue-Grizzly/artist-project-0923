@@ -14,6 +14,10 @@ window.addEventListener("load", initApp);
 function initApp() {
   fetchArtists();
 
+  document.querySelector("#sortby").dataset.filterValue = "";
+  document.querySelector("#favorites").dataset.filterValue = "";
+  document.querySelector("#filterby").dataset.filterValue = "";
+
 
   document
     .querySelector("#create-artist-form")
@@ -169,7 +173,7 @@ async function deleteArtistConfirm(artistObject) {
     refreshArtistGrid();
     showDeleteFeedback();
   } else {
-    console.log(response.status)
+    console.log(response.status, response.statusText);
   }
 }
 
@@ -221,7 +225,7 @@ function showArtist(artistObject) {
             <p>Genres: ${artistObject.genres}</p>
             <p>Website: ${artistObject.website}</p>
         </div>
-            <div id="btns-grid"class="btns">
+            <div class="btns">
                 <button class="btn-delete">Delete</button>
                 <button class="btn-update">Update</button>
                 <button class="btn-favorite">Favorite</button> 

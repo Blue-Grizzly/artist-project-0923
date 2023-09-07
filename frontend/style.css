@@ -137,17 +137,12 @@ main {
 .grid-container .btns {
   padding: 1em 0 0;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 1em;
 }
 
 .grid-container{
   margin-top: 5em;
-}
-
-#btns-grid{
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
 }
 
 

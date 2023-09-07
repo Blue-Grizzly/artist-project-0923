@@ -61,11 +61,14 @@ app.put("/artists/:artistid", async(request, response)=>{
     const data = await fs.readFile("data.json");
     const artists = JSON.parse(data);
     const param = request.params.artistid;
-    // const result = artists.find( artist => Number(artist.id) === Number(param));
-    // artists.splice(artists.indexOf(result), 1); //old way i did it
     const newArtist = artists.filter(artist => Number(artist.id) !== Number(param))
     newArtist.push(request.body);
-    if (!result){
+   
+   
+   
+   
+   
+    if (newArtist == artists){
         response.status(404).json({ error: `No artist found with id: ${param}!`});
     }else if(Object.keys(request.body).length != 10){ 
         response.status(400).json({ error: "Incorrect number of artist attributes!"});    
@@ -82,7 +85,7 @@ app.delete("/artists/:artistid", async(request, response)=>{
     // const result = artists.find( artist => Number(artist.id) === Number(param));
     // artists.splice(artists.indexOf(result), 1);
     const newArtist = artists.filter(artist => Number(artist.id) !== Number(param))
-    if(!result){
+    if(newArtist == artists){
         response.status(404).json({ error: `No artist found with id: ${param}!`})
     }else {
         await fs.writeFile("data.json", JSON.stringify(newArtist));
@@ -95,15 +98,12 @@ app.patch("/artists/:artistid", async (request, response)=>{
     const artists = JSON.parse(data);
     const param = request.params.artistid;
     const result = artists.find( artist => Number(artist.id) === Number(param));
-    if(result.favorite == true){
-        result.favorite = false;
-      } else{
-        result.favorite = true;
-      }    
-      
-    if (!artists){
+
+    if (!result){
         response.status(404).json({ error: `No artist found with id: ${param}!`});
     } else {
+        result.favorite = !result.favorite
+
         await fs.writeFile("data.json", JSON.stringify(artists));
         response.json(result.favorite);
         }

@@ -49,7 +49,7 @@ function filterByGenre(list) {
 function filterFavorites(list){
   const filterValue = document.querySelector("#favorites").dataset.filterValue;
     let filteredList = list.filter((artist)=> artist.favorite == true);
-    if (filterValue == "all"){
+    if (filterValue == "all" || !filterValue){
         return list;
     } else if(filteredList.length == 0){
         return filteredList =[];
@@ -58,6 +58,6 @@ function filterFavorites(list){
     }
 }
 
-
+  
 
 export { filterByGenre, sortByOption, searchByName, filterFavorites};

@@ -3,8 +3,7 @@ const endpoint = "http://127.0.0.1:3000";
 
 async function getArtists() {
   const response = await fetch(`${endpoint}/artists`);
-  const data = await response.json();
-  const artists = Object.keys(data).map(key => ({ id: key, ...data[key] })); //does the same as the old prepareData function but in 1 line
+  const artists = await response.json();
   return artists;
 }
 
