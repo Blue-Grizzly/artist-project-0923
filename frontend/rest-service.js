@@ -38,7 +38,6 @@ async function createArtist(
   return response;
 }
 
-//  Updates an existing character
 async function updateArtist(
   id,
   name,
@@ -48,9 +47,9 @@ async function updateArtist(
   labels,
   website,
   description,
-  image,
-  favorite) {
-  // Character object we update
+  image) {
+
+    //new object to replace old version of data
   const artistToUpdate = {
     id: id,
     name: name,
@@ -61,11 +60,8 @@ async function updateArtist(
     website: website,
     description: description,
     image: image,
-    favorite: favorite
   };
-  // Converts the JS object to JSON string
   const json = JSON.stringify(artistToUpdate);
-  // PUT fetch request with JSON in the body. Calls the specific element in resource
   const response = await fetch(`${endpoint}/artists/${id}`, {
     headers: {
       "Content-Type": "application/json"
@@ -73,7 +69,6 @@ async function updateArtist(
     method: "PUT",
     body: json,
   });
-  // Checks if response is ok - if the response is successful
     return response;
 }
 
@@ -91,5 +86,6 @@ async function deleteArtist(artistObject) {
 //   });
 //   return response;
 // }
+// replaced by localstorage methods for multi-user compatability
 
 export { getArtists, createArtist, updateArtist, deleteArtist};

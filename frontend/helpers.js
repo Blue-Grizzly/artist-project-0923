@@ -1,15 +1,11 @@
 import { artistList } from "./script.js";
 
-function searchByName(searchValue) {
+function searchByName(searchValue) { //searching for all artist names that contains the search of the user
   searchValue = searchValue.toLowerCase().trim();
-  return artistList.filter(checkNames);
-
-  function checkNames(artist) {
-    return artist.name.toLowerCase().includes(searchValue);
-  }
+  return artistList.filter(artist => artist.name.toLowerCase().includes(searchValue));
 }
 
-function sortByOption(list) {
+function sortByOption(list) { //sorts depending on what sort option the user chooses
   const sortValue = document.querySelector("#sortby").dataset.filterValue;
   if(sortValue){
     if (sortValue === "name") {
@@ -28,7 +24,7 @@ function sortByOption(list) {
   }
 }
 
-function filterByGenre(list) {
+function filterByGenre(list) { //filters for the genre chosen by the user
   const filterValue = document.querySelector("#filterby").dataset.filterValue;
   if(filterValue != "filterall"){
   let filteredList = list.filter((artist) =>
@@ -44,7 +40,7 @@ function filterByGenre(list) {
   }
 }
 
-function filterFavorites(list){
+function filterFavorites(list){ // filters favorites ony
   const filterValue = document.querySelector("#favorites").dataset.filterValue;
     let filteredList = list.filter((artist)=> artist.id in localStorage); //checks if artist id exists as a key in localstorage
     if (filterValue == "all" || !filterValue){
