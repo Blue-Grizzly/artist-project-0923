@@ -1,5 +1,4 @@
-import fs from "fs/promises";
-import express, { query } from "express";
+import express from "express";
 import cors from "cors";
 import connection from "./database.js";
 
